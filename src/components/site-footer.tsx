@@ -1,8 +1,14 @@
 import { Link } from "@tanstack/react-router";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { services } from "@/lib/services-data";
+import { useQuery } from "@tanstack/react-query";
+import { fetchSiteSettings } from "@/lib/cms";
 
 export function SiteFooter() {
+  const { data: s } = useQuery({ queryKey: ["site_settings"], queryFn: fetchSiteSettings });
+  const phone = s?.phone || "+93 793 535 228";
+  const email = s?.email || "support@arianacoach.com";
+  const address = s?.address || "Kabul Intercontinental, Bagh-e-balaa, Kabul — Afghanistan";
   return (
     <footer className="mt-24 bg-brand-navy-deep text-white/80">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 md:grid-cols-4 md:px-8">
@@ -13,9 +19,9 @@ export function SiteFooter() {
             consulting and innovation.
           </p>
           <div className="mt-6 space-y-2 text-sm text-white/70">
-            <div className="flex items-start gap-2"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand-orange" /> Kabul Intercontinental, Bagh-e-balaa, Kabul — Afghanistan</div>
-            <div className="flex items-center gap-2"><Mail className="h-4 w-4 text-brand-orange" /> support@arianacoach.com</div>
-            <div className="flex items-center gap-2"><Phone className="h-4 w-4 text-brand-orange" /> +93 793 535 228</div>
+            <div className="flex items-start gap-2"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand-orange" /> {address}</div>
+            <div className="flex items-center gap-2"><Mail className="h-4 w-4 text-brand-orange" /> {email}</div>
+            <div className="flex items-center gap-2"><Phone className="h-4 w-4 text-brand-orange" /> {phone}</div>
           </div>
         </div>
         <div>

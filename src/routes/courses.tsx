@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { BookOpen, Clock, GraduationCap } from "lucide-react";
 import { PageShell } from "@/components/page-shell";
+import { useQuery } from "@tanstack/react-query";
+import { fetchCourses } from "@/lib/cms";
 
 export const Route = createFileRoute("/courses")({
   head: () => ({
@@ -16,18 +18,8 @@ export const Route = createFileRoute("/courses")({
   component: CoursesPage,
 });
 
-const courses = [
-  { title: "Leadership & Management Foundations", weeks: 6, level: "Manager", price: "$320", track: "Leadership" },
-  { title: "Digital Marketing & Social Media", weeks: 4, level: "Beginner–Intermediate", price: "$220", track: "Digital" },
-  { title: "Financial Literacy for Founders", weeks: 4, level: "Founder", price: "$260", track: "Finance" },
-  { title: "Modern Web Development (React)", weeks: 10, level: "Intermediate", price: "$540", track: "Tech" },
-  { title: "Sales & Business Development", weeks: 5, level: "All levels", price: "$280", track: "Sales" },
-  { title: "Business English Mastery", weeks: 8, level: "B1 → C1", price: "$380", track: "Language" },
-  { title: "Data & AI for Business", weeks: 6, level: "Manager", price: "$420", track: "Tech" },
-  { title: "Project Management (Agile)", weeks: 5, level: "PM / Lead", price: "$310", track: "Ops" },
-];
-
 function CoursesPage() {
+  const { data: courses = [] } = useQuery({ queryKey: ["courses"], queryFn: () => fetchCourses() });
   return (
     <PageShell
       eyebrow="Training Center"
@@ -36,7 +28,7 @@ function CoursesPage() {
     >
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {courses.map((c) => (
-          <div key={c.title} className="flex flex-col rounded-2xl border border-border bg-card p-6 shadow-soft transition-all hover:-translate-y-1 hover:shadow-elegant">
+          <div key={c.id} className="flex flex-col rounded-2xl border border-border bg-card p-6 shadow-soft transition-all hover:-translate-y-1 hover:shadow-elegant">
             <div className="flex items-center gap-2">
               <span className="inline-flex rounded-full bg-secondary/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-widest text-secondary">
                 {c.track}
