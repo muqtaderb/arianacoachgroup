@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Calendar, CheckCircle2, Mail, MapPin, Phone } from "lucide-react";
 import { PageShell } from "@/components/page-shell";
+import { useQuery } from "@tanstack/react-query";
+import { fetchSiteSettings } from "@/lib/cms";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -19,6 +21,11 @@ export const Route = createFileRoute("/contact")({
 
 function ContactPage() {
   const [sent, setSent] = useState(false);
+  const { data: s } = useQuery({ queryKey: ["site_settings"], queryFn: fetchSiteSettings });
+  const phone = s?.phone || "+93 793 535 228";
+  const email = s?.email || "support@arianacoach.com";
+  const address = s?.address || "Kabul Intercontinental, Bagh-e-balaa, Kabul — Afghanistan";
+  const hours = s?.office_hours || "Sat–Thu · 09:00 – 18:00 (AFT) · Friday closed";
   return (
     <PageShell
       eyebrow="Contact"
@@ -86,17 +93,14 @@ function ContactPage() {
           <div className="rounded-2xl border border-border bg-card p-6 shadow-soft">
             <div className="text-xs uppercase tracking-widest text-brand-orange">Reach us directly</div>
             <div className="mt-4 space-y-3 text-sm">
-              <div className="flex items-center gap-3"><Mail className="h-4 w-4 text-secondary" /> support@arianacoach.com</div>
-              <div className="flex items-center gap-3"><Phone className="h-4 w-4 text-secondary" /> +93 793 535 228</div>
-              <div className="flex items-start gap-3"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-secondary" /> Kabul Intercontinental, Bagh-e-balaa, Kabul — Afghanistan</div>
+              <div className="flex items-center gap-3"><Mail className="h-4 w-4 text-secondary" /> {email}</div>
+              <div className="flex items-center gap-3"><Phone className="h-4 w-4 text-secondary" /> {phone}</div>
+              <div className="flex items-start gap-3"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-secondary" /> {address}</div>
             </div>
           </div>
           <div className="rounded-2xl bg-hero-gradient p-6 text-white shadow-elegant">
             <div className="text-xs uppercase tracking-widest text-brand-orange">Office hours</div>
-            <div className="mt-3 text-sm text-white/80">
-              Sat–Thu · 09:00 – 18:00 (AFT)<br />
-              Friday · closed
-            </div>
+            <div className="mt-3 whitespace-pre-line text-sm text-white/80">{hours}</div>
           </div>
         </aside>
       </div>

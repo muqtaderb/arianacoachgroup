@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import logo from "@/assets/acg-logo.jpg.asset.json";
+import { useAuth } from "@/hooks/use-auth";
 
 const nav = [
   { to: "/", label: "Home" },
@@ -16,6 +17,7 @@ const nav = [
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const { isAdmin } = useAuth();
   return (
     <header className="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-8">
@@ -40,6 +42,11 @@ export function SiteHeader() {
           ))}
         </nav>
         <div className="hidden lg:block">
+          {isAdmin && (
+            <Link to="/admin" className="mr-2 inline-flex items-center rounded-full border border-border px-4 py-2 text-sm font-semibold text-foreground hover:bg-muted">
+              Admin
+            </Link>
+          )}
           <Link
             to="/contact"
             className="inline-flex items-center justify-center rounded-full bg-accent-gradient px-5 py-2.5 text-sm font-semibold text-accent-foreground shadow-soft transition-transform hover:scale-[1.03]"
