@@ -14,16 +14,282 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      blog_posts: {
+        Row: {
+          category: string
+          content: string
+          created_at: string
+          excerpt: string
+          id: string
+          post_date: string
+          published: boolean
+          read_time: string
+          slug: string
+          sort_order: number
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category?: string
+          content?: string
+          created_at?: string
+          excerpt?: string
+          id?: string
+          post_date?: string
+          published?: boolean
+          read_time?: string
+          slug: string
+          sort_order?: number
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          content?: string
+          created_at?: string
+          excerpt?: string
+          id?: string
+          post_date?: string
+          published?: boolean
+          read_time?: string
+          slug?: string
+          sort_order?: number
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      courses: {
+        Row: {
+          created_at: string
+          id: string
+          level: string
+          price: string
+          published: boolean
+          sort_order: number
+          title: string
+          track: string
+          updated_at: string
+          weeks: number
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          level?: string
+          price?: string
+          published?: boolean
+          sort_order?: number
+          title: string
+          track?: string
+          updated_at?: string
+          weeks?: number
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          level?: string
+          price?: string
+          published?: boolean
+          sort_order?: number
+          title?: string
+          track?: string
+          updated_at?: string
+          weeks?: number
+        }
+        Relationships: []
+      }
+      events: {
+        Row: {
+          created_at: string
+          description: string
+          event_date: string
+          id: string
+          is_featured: boolean
+          location: string
+          published: boolean
+          sort_order: number
+          tag: string
+          ticket_tiers: Json
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string
+          event_date?: string
+          id?: string
+          is_featured?: boolean
+          location?: string
+          published?: boolean
+          sort_order?: number
+          tag?: string
+          ticket_tiers?: Json
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          event_date?: string
+          id?: string
+          is_featured?: boolean
+          location?: string
+          published?: boolean
+          sort_order?: number
+          tag?: string
+          ticket_tiers?: Json
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      jobs: {
+        Row: {
+          created_at: string
+          description: string
+          employment_type: string
+          id: string
+          location: string
+          published: boolean
+          sort_order: number
+          team: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string
+          employment_type?: string
+          id?: string
+          location?: string
+          published?: boolean
+          sort_order?: number
+          team?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          employment_type?: string
+          id?: string
+          location?: string
+          published?: boolean
+          sort_order?: number
+          team?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      services: {
+        Row: {
+          created_at: string
+          description: string
+          faqs: Json
+          id: string
+          outcomes: Json
+          plans: Json
+          published: boolean
+          slug: string
+          sort_order: number
+          tagline: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string
+          faqs?: Json
+          id?: string
+          outcomes?: Json
+          plans?: Json
+          published?: boolean
+          slug: string
+          sort_order?: number
+          tagline?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          faqs?: Json
+          id?: string
+          outcomes?: Json
+          plans?: Json
+          published?: boolean
+          slug?: string
+          sort_order?: number
+          tagline?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      site_settings: {
+        Row: {
+          address: string
+          email: string
+          id: number
+          office_hours: string
+          phone: string
+          updated_at: string
+        }
+        Insert: {
+          address?: string
+          email?: string
+          id?: number
+          office_hours?: string
+          phone?: string
+          updated_at?: string
+        }
+        Update: {
+          address?: string
+          email?: string
+          id?: number
+          office_hours?: string
+          phone?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +416,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+    },
   },
 } as const
