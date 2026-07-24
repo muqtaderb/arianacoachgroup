@@ -86,9 +86,9 @@ function ContactPage() {
           <div className="rounded-2xl border border-border bg-card p-6 shadow-soft">
             <div className="text-xs uppercase tracking-widest text-brand-orange">Reach us directly</div>
             <div className="mt-4 space-y-3 text-sm">
-              <div className="flex items-center gap-3"><Mail className="h-4 w-4 text-secondary" /> hello@arianacoachgroup.com</div>
-              <div className="flex items-center gap-3"><Phone className="h-4 w-4 text-secondary" /> +93 700 000 000</div>
-              <div className="flex items-center gap-3"><MapPin className="h-4 w-4 text-secondary" /> Kabul, Afghanistan</div>
+              <div className="flex items-center gap-3"><Mail className="h-4 w-4 text-secondary" /> support@arianacoach.com</div>
+              <div className="flex items-center gap-3"><Phone className="h-4 w-4 text-secondary" /> +93 793 535 228</div>
+              <div className="flex items-start gap-3"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-secondary" /> Kabul Intercontinental, Bagh-e-balaa, Kabul — Afghanistan</div>
             </div>
           </div>
           <div className="rounded-2xl bg-hero-gradient p-6 text-white shadow-elegant">
