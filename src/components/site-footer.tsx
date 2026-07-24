@@ -13,9 +13,9 @@ export function SiteFooter() {
             consulting and innovation.
           </p>
           <div className="mt-6 space-y-2 text-sm text-white/70">
-            <div className="flex items-center gap-2"><MapPin className="h-4 w-4 text-brand-orange" /> Kabul, Afghanistan</div>
-            <div className="flex items-center gap-2"><Mail className="h-4 w-4 text-brand-orange" /> hello@arianacoachgroup.com</div>
-            <div className="flex items-center gap-2"><Phone className="h-4 w-4 text-brand-orange" /> +93 700 000 000</div>
+            <div className="flex items-start gap-2"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand-orange" /> Kabul Intercontinental, Bagh-e-balaa, Kabul — Afghanistan</div>
+            <div className="flex items-center gap-2"><Mail className="h-4 w-4 text-brand-orange" /> support@arianacoach.com</div>
+            <div className="flex items-center gap-2"><Phone className="h-4 w-4 text-brand-orange" /> +93 793 535 228</div>
           </div>
         </div>
         <div>
