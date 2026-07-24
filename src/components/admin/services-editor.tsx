@@ -22,11 +22,11 @@ export function ServicesEditor() {
     mutationFn: async (d: Draft) => {
       const payload = { ...d, outcomes: d.outcomes, plans: d.plans, faqs: d.faqs };
       if (d.id) {
-        const { error } = await supabase.from("services").update(payload).eq("id", d.id);
+        const { error } = await supabase.from("services").update(payload as any).eq("id", d.id);
         if (error) throw error;
       } else {
         const { id: _drop, ...rest } = payload;
-        const { error } = await supabase.from("services").insert(rest);
+        const { error } = await supabase.from("services").insert(rest as any);
         if (error) throw error;
       }
     },

@@ -16,8 +16,8 @@ export function EventsEditor() {
 
   const save = useMutation({
     mutationFn: async (d: Draft) => {
-      if (d.id) { const { error } = await supabase.from("events").update(d).eq("id", d.id); if (error) throw error; }
-      else { const { id: _d, ...rest } = d; const { error } = await supabase.from("events").insert(rest); if (error) throw error; }
+      if (d.id) { const { error } = await supabase.from("events").update(d as any).eq("id", d.id); if (error) throw error; }
+      else { const { id: _d, ...rest } = d; const { error } = await supabase.from("events").insert(rest as any); if (error) throw error; }
     },
     onSuccess: () => { toast.success("Event saved"); qc.invalidateQueries({ queryKey: ["admin", "events"] }); qc.invalidateQueries({ queryKey: ["events"] }); setEditing(null); },
     onError: (e: Error) => toast.error(e.message),
