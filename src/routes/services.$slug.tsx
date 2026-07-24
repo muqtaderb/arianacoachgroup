@@ -2,7 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowRight, Check } from "lucide-react";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { getService, services } from "@/lib/services-data";
+import { getService, services, type ServicePlan } from "@/lib/services-data";
 
 export const Route = createFileRoute("/services/$slug")({
   loader: ({ params }) => {
@@ -98,7 +98,7 @@ function ServicePage() {
           <div className="rounded-2xl border border-border bg-muted/40 p-6">
             <div className="text-xs uppercase tracking-widest text-brand-orange">What's included</div>
             <ul className="mt-4 space-y-3">
-              {service.outcomes.map((o) => (
+              {service.outcomes.map((o: string) => (
                 <li key={o} className="flex items-start gap-3 text-sm">
                   <Check className="mt-0.5 h-4 w-4 shrink-0 text-secondary" />
                   <span>{o}</span>
@@ -113,7 +113,7 @@ function ServicePage() {
           <h2 className="text-2xl font-bold tracking-tight md:text-3xl">Choose a plan</h2>
           <p className="mt-2 text-muted-foreground">All plans include email support and a 30-day satisfaction guarantee.</p>
           <div className="mt-8 grid gap-6 md:grid-cols-3">
-            {service.plans.map((plan) => (
+            {service.plans.map((plan: ServicePlan) => (
               <div
                 key={plan.name}
                 className={`relative rounded-2xl border p-7 ${
@@ -135,7 +135,7 @@ function ServicePage() {
                   <span className="text-sm text-muted-foreground">{plan.period}</span>
                 </div>
                 <ul className="mt-6 space-y-3 border-t border-border pt-6">
-                  {plan.features.map((f) => (
+                  {plan.features.map((f: string) => (
                     <li key={f} className="flex items-start gap-3 text-sm">
                       <Check className="mt-0.5 h-4 w-4 shrink-0 text-secondary" />
                       <span>{f}</span>
@@ -167,7 +167,7 @@ function ServicePage() {
             </p>
           </div>
           <div className="space-y-4">
-            {service.faqs.map((f) => (
+            {service.faqs.map((f: { q: string; a: string }) => (
               <details key={f.q} className="group rounded-xl border border-border bg-card p-5">
                 <summary className="cursor-pointer list-none text-base font-semibold">
                   {f.q}
