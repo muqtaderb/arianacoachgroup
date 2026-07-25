@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import logo from "@/assets/acg-logo.jpg.asset.json";
+const logo = { url: "/images/acg-logo.jpg" };
 import { useAuth } from "@/hooks/use-auth";
 
 const nav = [
