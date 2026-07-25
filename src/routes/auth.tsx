@@ -5,7 +5,7 @@ import { LogIn } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable";
 import { useAuth } from "@/hooks/use-auth";
-import logo from "@/assets/acg-logo.jpg.asset.json";
+const logo = { url: "/images/acg-logo.jpg" };
 
 const searchSchema = z.object({ redirect: z.string().optional() });
 

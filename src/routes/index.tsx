@@ -4,7 +4,7 @@ import { ArrowRight, Sparkles, TrendingUp, Users2, Globe2, CheckCircle2 } from "
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { services } from "@/lib/services-data";
-import logo from "@/assets/acg-logo.jpg.asset.json";
+const logo = { url: "/images/acg-logo.jpg" };
 
 export const Route = createFileRoute("/")({
   head: () => ({

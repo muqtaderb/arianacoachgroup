@@ -9,7 +9,7 @@ import { EventsEditor } from "@/components/admin/events-editor";
 import { CoursesEditor } from "@/components/admin/courses-editor";
 import { JobsEditor } from "@/components/admin/jobs-editor";
 import { BlogPostsEditor } from "@/components/admin/blog-posts-editor";
-import logo from "@/assets/acg-logo.jpg.asset.json";
+const logo = { url: "/images/acg-logo.jpg" };
 
 const TABS = [
   { id: "settings", label: "Site info" },
