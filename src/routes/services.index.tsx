@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { PageShell } from "@/components/page-shell";
-import { services } from "@/lib/services-data";
+import { useQuery } from "@tanstack/react-query";
+import { fetchServices } from "@/lib/cms";
 
 export const Route = createFileRoute("/services/")({
   head: () => ({
@@ -22,6 +23,7 @@ export const Route = createFileRoute("/services/")({
 });
 
 function ServicesIndex() {
+  const { data: services = [] } = useQuery({ queryKey: ["services"], queryFn: () => fetchServices() });
   return (
     <PageShell
       eyebrow="Our Services"
@@ -40,7 +42,7 @@ function ServicesIndex() {
             <h3 className="mt-2 text-xl font-bold tracking-tight">{s.title}</h3>
             <p className="mt-2 flex-1 text-sm text-muted-foreground">{s.tagline}</p>
             <div className="mt-6 flex items-center justify-between border-t border-border pt-4 text-sm">
-              <span className="text-muted-foreground">From {s.plans[0].price}</span>
+              <span className="text-muted-foreground">{s.plans[0] ? `From ${s.plans[0].price}` : ""}</span>
               <span className="inline-flex items-center gap-1 font-semibold text-secondary">
                 Details <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </span>

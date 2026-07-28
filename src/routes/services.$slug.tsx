@@ -1,37 +1,19 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Check } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { getService, services, type ServicePlan } from "@/lib/services-data";
+import { fetchServiceBySlug, fetchServices, type ServicePlan, type ServiceFaq } from "@/lib/cms";
 
 export const Route = createFileRoute("/services/$slug")({
-  loader: ({ params }) => {
-    const service = getService(params.slug);
-    if (!service) throw notFound();
-    return { service };
-  },
-  head: ({ loaderData }) => {
-    if (!loaderData) {
-      return {
-        meta: [
-          { title: "Service not found — ACG" },
-          { name: "robots", content: "noindex" },
-        ],
-      };
-    }
-    const s = loaderData.service;
-    return {
-      meta: [
-        { title: `${s.title} — Ariana Coach Group` },
-        { name: "description", content: s.tagline },
-        { property: "og:title", content: `${s.title} — Ariana Coach Group` },
-        { property: "og:description", content: s.tagline },
-        { property: "og:url", content: `/services/${s.slug}` },
-        { property: "og:type", content: "product" },
-      ],
-      links: [{ rel: "canonical", href: `/services/${s.slug}` }],
-    };
-  },
+  head: ({ params }) => ({
+    meta: [
+      { title: `Service — Ariana Coach Group` },
+      { property: "og:url", content: `/services/${params.slug}` },
+      { property: "og:type", content: "product" },
+    ],
+    links: [{ rel: "canonical", href: `/services/${params.slug}` }],
+  }),
   notFoundComponent: () => (
     <div className="min-h-screen bg-background">
       <SiteHeader />
@@ -64,7 +46,40 @@ export const Route = createFileRoute("/services/$slug")({
 });
 
 function ServicePage() {
-  const { service } = Route.useLoaderData();
+  const { slug } = Route.useParams();
+  const { data: service, isLoading } = useQuery({
+    queryKey: ["services", slug],
+    queryFn: () => fetchServiceBySlug(slug),
+  });
+  const { data: allServices = [] } = useQuery({
+    queryKey: ["services"],
+    queryFn: () => fetchServices(),
+  });
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <SiteHeader />
+        <div className="mx-auto max-w-3xl px-4 py-24 text-center text-muted-foreground">Loading…</div>
+        <SiteFooter />
+      </div>
+    );
+  }
+
+  if (!service) {
+    return (
+      <div className="min-h-screen bg-background">
+        <SiteHeader />
+        <div className="mx-auto max-w-3xl px-4 py-24 text-center">
+          <h1 className="text-3xl font-bold">Service not found</h1>
+          <p className="mt-3 text-muted-foreground">The service you're looking for doesn't exist.</p>
+          <Link to="/services" className="mt-6 inline-flex text-secondary underline">View all services</Link>
+        </div>
+        <SiteFooter />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
@@ -167,7 +182,7 @@ function ServicePage() {
             </p>
           </div>
           <div className="space-y-4">
-            {service.faqs.map((f: { q: string; a: string }) => (
+            {service.faqs.map((f: ServiceFaq) => (
               <details key={f.q} className="group rounded-xl border border-border bg-card p-5">
                 <summary className="cursor-pointer list-none text-base font-semibold">
                   {f.q}
@@ -202,7 +217,7 @@ function ServicePage() {
         <div className="mt-16">
           <div className="text-xs uppercase tracking-widest text-brand-orange">Other services</div>
           <div className="mt-4 flex flex-wrap gap-2">
-            {services.filter((s) => s.slug !== service.slug).map((s) => (
+            {allServices.filter((s) => s.slug !== service.slug).map((s) => (
               <Link
                 key={s.slug}
                 to="/services/$slug"
